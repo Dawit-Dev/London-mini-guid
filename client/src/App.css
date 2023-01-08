@@ -23,6 +23,49 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.btn {
+  display: flex;
+  justify-content: space-around;
+  padding: 1.5rem 0 0 0;
+  
+}
+.btn button {
+  width: 150px;
+  padding: 1rem;
+  border-radius: 25px;
+  list-style: none;
+  font-weight: bold;
+  font-size: larger;
+  box-shadow: 0 4px 5px;
+}
+.table {
+  border-collapse: collapse;
+  width: 95%;
+  margin: 2.5%;
+}
+.table td,
+.table th {
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 25%;
+
+}
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+  /* width: 25%; */
+
+}
+.table tr:hover {
+  background-color: #ddd;
+}
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #adb0af;
+  color: white;
+
+}
 
 .App-link {
   color: #61dafb;

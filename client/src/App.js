@@ -26,7 +26,7 @@ function App() {
         <option value="heathrow">Heathrow</option>
         <option value="harrow">Harrow</option>
       </select>
-      <div>
+      <div className="btn">
         <button
           type="button"
           value="pharmacies"
@@ -57,7 +57,7 @@ function App() {
         </button>
       </div>
       <h2>Data</h2>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>Name</th>
