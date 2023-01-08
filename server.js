@@ -7,11 +7,17 @@ const harrowData = require("./data/Harrow.json");
 const heathrowData = require("./data/Heathrow.json");
 const stratfordData = require("./data/Stratford.json");
 
+const data = [
+  { harrow: harrowData },
+  { heathrow: heathrowData },
+  { stratford: stratfordData },
+];
+
 app.use(express.json());
-// app.use(cors());
 app.use(express.static(path.resolve(__dirname, "./client/build")));
-app.get("/", function (request, response) {
-  response.json({
+
+app.get("/", (req, res) => {
+  res.json({
     "/pharmacies": "returns an array of pharmacies in a specific area",
     "/hospitals": "returns an array of hospitals in a specific area",
     "/doctors": "returns an array of doctors in a specific area",
@@ -19,60 +25,18 @@ app.get("/", function (request, response) {
   });
 });
 
-app.get("/:city/pharmacies", function (request, response) {
-  let cityName = request.params.city.toLowerCase();
-  if (cityName === "stratford") {
-    response.send(stratfordData.pharmacies);
-  }
-  if (cityName === "harrow") {
-    response.send(harrowData.pharmacies);
-  }
-  if (cityName === "heathrow") {
-    response.send(heathrowData.pharmacies);
-  }
-  response.sendStatus(404);
-});
-
-app.get("/:city/hospitals", function (request, response) {
-  let cityName = request.params.city.toLowerCase();
-  if (cityName === "stratford") {
-    response.send(stratfordData.hospitals);
-  }
-  if (cityName === "harrow") {
-    response.send(harrowData.hospitals);
-  }
-  if (cityName === "heathrow") {
-    response.send(heathrowData.hospitals);
-  }
-  response.sendStatus(404);
-});
-
-app.get("/:city/doctors", function (request, response) {
-  let cityName = request.params.city.toLowerCase();
-  if (cityName === "stratford") {
-    response.send(stratfordData.doctors);
-  }
-  if (cityName === "harrow") {
-    response.send(harrowData.doctors);
-  }
-  if (cityName === "heathrow") {
-    response.send(heathrowData.doctors);
-  }
-  response.sendStatus(404);
-});
-
-app.get("/:city/colleges", function (request, response) {
-  let cityName = request.params.city.toLowerCase();
-  if (cityName === "stratford") {
-    response.send(stratfordData.colleges);
-  }
-  if (cityName === "harrow") {
-    response.send(harrowData.colleges);
-  }
-  if (cityName === "heathrow") {
-    response.send(heathrowData.colleges);
-  }
-  response.sendStatus(404);
+app.get("/:city/:category", (req, res) => {
+  let cityName = req.params.city.toLowerCase();
+  let category = req.params.category.toLowerCase();
+  data.forEach((city) => {
+    if (city.hasOwnProperty(cityName)) {
+      if (city[cityName][category]) {
+        res.send(city[cityName][category]);
+      }
+      res.status(404).send("Category not found");
+    }
+  });
+  res.status(404).send("City not found");
 });
 
 app.listen(PORT, function () {
